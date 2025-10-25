@@ -57,4 +57,38 @@ public class Database
             return newId;
         }
     }
+
+    public static List<CodingSession> GetAllEntries()
+    {
+        using (var connection = new SQLiteConnection(connectionString))
+        {
+            connection.Open();
+            var sql = "SELECT * FROM CodeTracker;";
+            var entries = connection.Query<CodingSession>(sql).ToList();
+            return entries;
+        }
+    }
+
+    public static void DeleteAllEntries()
+    {
+        using (var connection = new SQLiteConnection(connectionString)) 
+        {
+            connection.Open();
+            var sql = $"DELETE FROM {tableName};";
+            connection.Execute(sql);
+        }
+    }
+
+    public static void DeleteEntryById(long id)
+    {
+        using (var connection = new SQLiteConnection(connectionString))
+        {
+            // Get list of existing entries for ID selection
+            GetAllEntries();
+
+            connection.Open();
+            var sql = $"DELETE FROM {tableName} WHERE Id = @Id;";
+            connection.Execute(sql, new { Id = id } );
+        }
+    }
 }
