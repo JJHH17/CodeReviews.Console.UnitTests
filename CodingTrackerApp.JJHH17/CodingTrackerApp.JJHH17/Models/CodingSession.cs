@@ -14,6 +14,12 @@ public class CodingSession
     {
     }
 
+    public CodingSession(string startTime, string endTime)
+    {
+        StartTime = startTime;
+        EndTime = endTime;
+    }
+
     public CodingSession(string startTime, string endTime, string duration)
     {
         StartTime = startTime;
