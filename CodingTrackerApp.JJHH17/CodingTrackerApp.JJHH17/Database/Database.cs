@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using System.Configuration;
 using System.Data.SQLite;
+using CodingTrackerApp.JJHH17.Models;
 
 namespace CodingTrackerApp.JJHH17.Database;
 
