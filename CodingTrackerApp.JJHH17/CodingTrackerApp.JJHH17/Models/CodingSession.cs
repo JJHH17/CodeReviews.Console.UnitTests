@@ -60,29 +60,8 @@ public class CodingSession
         Duration = $"{years} years, {months} months, {days} days, {totalHours} hours, {totalMinutes} minutes, {totalSeconds} seconds";
     }
 
-    public void StartStopwatch()
+    public string GetDuration()
     {
-        stopwatchStartTime = DateTime.Now;
-        Console.WriteLine("Stopwatch started at: " + stopwatchStartTime.Value.ToString("yyyy-MM-dd HH:mm:ss"));
-    }
-
-    public void StopStopwatch()
-    {
-        if (stopwatchStartTime == null)
-        {
-            Console.WriteLine("Stopwatch has not been started.");
-            return;
-        }
-
-        stopwatchEndTime = DateTime.Now;
-        Console.WriteLine($"Stopwatch stopped at {stopwatchEndTime}");
-
-        StartTime = stopwatchStartTime.Value.ToString("yyyy-MM-dd HH:mm:ss");
-        EndTime = stopwatchEndTime.Value.ToString("yyyy-MM-dd HH:mm:ss");
-
-        CalculateDuration();
-
-        stopwatchStartTime = null;
-        stopwatchEndTime = null;
+        return Duration;
     }
 }
