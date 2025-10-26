@@ -35,6 +35,8 @@ public class UserInterface
                     break;
 
                 case MenuOptions.ViewAllEvents:
+                    AnsiConsole.MarkupLine("[green]View All Events selected.[/]");
+                    ViewAllEntries();
                     break;
 
                 case MenuOptions.DeleteAll:
@@ -52,7 +54,7 @@ public class UserInterface
 
     public static void AddEntry()
     {
-        string startTime = AnsiConsole.Ask<string>("Enter start time (YYYY-MM-DD HH:MM):");
+        string startTime = AnsiConsole.Ask<string>("Enter start time (YYYY-MM-DD HH:MM) (Time is optional):");
 
         DateTime parsedStartTime;
         while (!DateTime.TryParse(startTime, out parsedStartTime))
@@ -61,7 +63,7 @@ public class UserInterface
             startTime = AnsiConsole.Ask<string>("Enter start time (YYYY-MM-DD HH:MM):");
         }
 
-        string endTime = AnsiConsole.Ask<string>("Enter end time (YYYY-MM-DD HH:MM)");
+        string endTime = AnsiConsole.Ask<string>("Enter end time (YYYY-MM-DD HH:MM) (Time is optional)");
 
         DateTime parsedEndTime;
         while (!DateTime.TryParse(endTime, out parsedEndTime) || parsedEndTime <= parsedStartTime)
@@ -75,5 +77,24 @@ public class UserInterface
         var newEntry = new CodingSession(startTime, endTime);
         newEntry.CalculateDuration();
         Database.Database.AddEntry(newEntry.StartTime, newEntry.EndTime, newEntry.Duration);
+    }
+
+    public static void ViewAllEntries()
+    {
+        var table = new Table();
+        table.AddColumn("ID");
+        table.AddColumn("Start Time");
+        table.AddColumn("End Time");
+        table.AddColumn("Duration");
+
+        List<CodingSession> entries = Database.Database.GetAllEntries();
+        foreach (var entry in entries)
+        {
+            table.AddRow(entry.Id.ToString(), entry.StartTime, entry.EndTime, entry.Duration);
+        }
+
+        AnsiConsole.Write(table);
+        AnsiConsole.MarkupLine("[green]Press any key to continue...[/]");
+        Console.ReadKey();
     }
 }
