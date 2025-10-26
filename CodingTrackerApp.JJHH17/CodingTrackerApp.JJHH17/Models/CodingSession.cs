@@ -1,4 +1,4 @@
-﻿namespace CodingTrackerApp.JJHH17;
+﻿namespace CodingTrackerApp.JJHH17.Models;
 
 public class CodingSession
 {
@@ -18,6 +18,7 @@ public class CodingSession
     {
         StartTime = startTime;
         EndTime = endTime;
+        CalculateDuration();
     }
 
     public CodingSession(string startTime, string endTime, string duration)
