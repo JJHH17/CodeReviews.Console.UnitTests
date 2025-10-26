@@ -45,6 +45,8 @@ public class UserInterface
                     break;
 
                 case MenuOptions.DeleteSingleEvent:
+                    AnsiConsole.MarkupLine("[green]Delete Single Event selected.[/]");
+                    DeleteSingleEntry();
                     break;
 
                 case MenuOptions.Exit:
@@ -107,6 +109,26 @@ public class UserInterface
         {
             Database.Database.DeleteAllEntries();
             AnsiConsole.MarkupLine("[green]All entries deleted successfully! Press any key to continue...[/]");
+        }
+        else
+        {
+            AnsiConsole.MarkupLine("[yellow]Deletion cancelled. Press any key to continue...[/]");
+        }
+
+        Console.ReadKey();
+    }
+
+    public static void DeleteSingleEntry()
+    {
+        ViewAllEntries();
+        int idToDelete = AnsiConsole.Ask<int>("Enter the ID of the entry to delete:");
+        AnsiConsole.MarkupLine($"[red]Are you sure you want to delete entry ID {idToDelete}[/]");
+        string confirmation = AnsiConsole.Ask<string>("Type 'yes' to confirm deletion:");
+
+        if (confirmation.ToLower() == "yes")
+        {
+            Database.Database.DeleteEntryById(idToDelete);
+            AnsiConsole.MarkupLine("[green]Entry deleted successfully! Press any key to continue...[/]");
         }
         else
         {
