@@ -1,5 +1,6 @@
 ﻿using Spectre.Console;
 using CodingTrackerApp.JJHH17;
+using CodingTrackerApp.JJHH17.Models;
 
 namespace CodingTrackerApp.JJHH17;
 
