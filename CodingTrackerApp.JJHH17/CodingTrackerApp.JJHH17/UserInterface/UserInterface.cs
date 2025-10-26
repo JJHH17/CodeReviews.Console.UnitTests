@@ -40,6 +40,8 @@ public class UserInterface
                     break;
 
                 case MenuOptions.DeleteAll:
+                    AnsiConsole.MarkupLine("[green]Delete All selected.[/]");
+                    DeleteAllEntries();
                     break;
 
                 case MenuOptions.DeleteSingleEvent:
@@ -95,6 +97,22 @@ public class UserInterface
 
         AnsiConsole.Write(table);
         AnsiConsole.MarkupLine("[green]Press any key to continue...[/]");
+        Console.ReadKey();
+    }
+
+    public static void DeleteAllEntries()
+    {
+        string confirmation = AnsiConsole.Ask<string>("Are you sure you want to delete all entries? (yes/no):");
+        if (confirmation.ToLower() == "yes")
+        {
+            Database.Database.DeleteAllEntries();
+            AnsiConsole.MarkupLine("[green]All entries deleted successfully! Press any key to continue...[/]");
+        }
+        else
+        {
+            AnsiConsole.MarkupLine("[yellow]Deletion cancelled. Press any key to continue...[/]");
+        }
+
         Console.ReadKey();
     }
 }
