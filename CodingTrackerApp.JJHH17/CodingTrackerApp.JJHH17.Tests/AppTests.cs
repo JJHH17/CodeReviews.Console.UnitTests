@@ -35,4 +35,13 @@ public class AppTests
         var session = new CodingTrackerApp.JJHH17.Models.CodingSession(start, end);
         Assert.AreEqual("0 years, 0 months, 0 days, 0 hours, 0 minutes, 0 seconds", session.GetDuration());
     }
+
+    [TestMethod]
+    public void DateInput_ValidDateFormat_PassesIfValidFormat()
+    {
+        var dateString = "2024-06-15 14:30";
+        DateTime parsedDate;
+        var isValid = DateTime.TryParse(dateString, out parsedDate);
+        Assert.IsTrue(isValid);
+    }
 }
